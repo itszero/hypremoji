@@ -12,6 +12,16 @@ pub fn get_base_path() -> Result<PathBuf, Box<dyn std::error::Error>> {
         }
     }
 
+    // Try <exe_path>/../share/hypremoji: This is how Nix installs software
+    if let Some(bin_dir) = exe_path.parent() {
+        if let Some(root_path) = bin_dir.parent() {
+            let share_path = root_path.join("share/hypremoji");
+            if share_path.exists() {
+                return Ok(share_path);
+            }
+        }
+    }
+
     let mut current_path = exe_path.clone();
     for _ in 0..5 {
         current_path = current_path.parent().unwrap_or(&current_path).to_path_buf();

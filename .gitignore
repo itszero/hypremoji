@@ -4,7 +4,7 @@
 **/*.swp
 *.iml
 .DS_Store
-Cargo.lock
+
 
 # Archivos de compilación de GTK y caché
 /gtk-rs-cache/
